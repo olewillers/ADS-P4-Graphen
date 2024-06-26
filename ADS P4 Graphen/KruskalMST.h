@@ -11,6 +11,7 @@ private:
 public:
 	KruskalMST() {};
 	KruskalMST(EdgeWeightedGraph G);
+	void treeID_union(int u, int v);
 	std::vector<Edge> edges() const;	// liefert MST
 	double weight() const;     			// berechnet Gesamtkosten des MST
 };

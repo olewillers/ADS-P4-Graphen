@@ -21,7 +21,7 @@ namespace Graphsearch {
 	{
 		marked[v] = true;
 
-		for (Edge vw : G.getAdj(v))
+		for (const Edge& vw : G.getAdj(v))
 		{
 			int w = vw.other(v);
 			
@@ -60,7 +60,7 @@ namespace Graphsearch {
 		
 		DFS_recursive(G, v, marked, edgeTo);
 
-		for (bool isMarked : marked)
+		for (const bool& isMarked : marked)
 		{
 			if (!isMarked)
 			{
@@ -114,56 +114,6 @@ namespace Graphsearch {
 				int w = G.getAdj(curr_v)[i].other(curr_v);
 
 				if (!marked[w] && edgeTo[w] == -1)
-				{
-					edgeTo[w] = curr_v;
-					marked[curr_v] = true;
-					q.push(w);
-				}
-			}
-		}
-
-		for (bool isMarked : marked)
-		{
-			if (!isMarked)
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	bool BFS2(const EdgeWeightedGraph& G, int v, std::vector<bool>& marked, std::vector<int>& edgeTo) 
-	{
-		marked.resize(G.getV());
-		edgeTo.resize(G.getV());
-
-		for (size_t i = 0; i < G.getV(); i++)
-		{
-			marked[i] = false;
-			edgeTo[i] = -1;
-		}
-		
-		std::queue<int> q;
-		q.push(v);
-
-		while (!q.empty())
-		{
-			int curr_v = q.front();
-			q.pop();
-
-			if (marked[curr_v])
-			{
-				continue;
-			}
-
-			marked[curr_v] = true;
-
-			for (Edge vw : G.getAdj(v))
-			{
-				int w = vw.other(curr_v);
-
-				if (!marked[w])
 				{
 					edgeTo[w] = curr_v;
 					marked[curr_v] = true;

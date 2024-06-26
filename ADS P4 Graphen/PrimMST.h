@@ -13,7 +13,7 @@ private:
 	 * PriorityQueue die alle Kanten speichert und mit pq.top()
 	 * die Kante mit dem kleinsten Gewicht zurueck gibt.
 	 */
-	std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;	
+	std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
 public:
 	PrimMST() {}
 	PrimMST(EdgeWeightedGraph G, int s);

@@ -7,6 +7,124 @@
 #include "KruskalMST.h"
 #include "DijkstraSP.h"
 
+using namespace std;
+
+void print_adj_list(EdgeWeightedGraph G)
+{
+	cout << endl;
+	int i = 0;
+
+	for (vector<Edge> adjList : G.getAdj())
+	{
+		int curr_V = i;
+		cout << curr_V;
+		i++;
+
+		for (Edge adj : adjList)
+		{
+			cout << "  -> " << adj.other(curr_V) << " [" << adj.weight() << "]";
+		}
+
+		cout << endl;
+	}
+}
+
+bool menu(EdgeWeightedGraph*& Graph)
+{
+    // Print Menu:
+    cout << "=============================================" << endl
+        << "       - Menu Graphen (by Ole Willers) -" << endl
+        << "=============================================" << endl
+        << "1) Graph einlesen" << endl
+        << "2) Tiefensuche" << endl
+        << "3) Breitensuche" << endl
+        << "4) MST nach Prim (Eingabe: Startknoten)" << endl
+        << "5) MST nach Kruskal" << endl
+        << "6) Kuerzeste Wege nach Dijkstra (Eingabe: Startknoten)" << endl
+        << "7) Ausgabe der Adjazenzliste" << endl
+        << "8) Kante loeschen" << endl
+        << "9) Kante hinzufuegen" << endl
+        << "0) Programm beenden" << endl
+        << "?> ";
+
+    int eingabe = 0;
+	string filename = "";
+    cin >> eingabe;
+    cin.ignore();
+
+    switch (eingabe)
+    {
+	case 0:
+
+		return false;
+		break;
+
+    case 1:
+
+		cout << "+Welcher Graph soll aus den Testdateien eingelesen werden (1 / 2 / 3) ?> ";
+		cin >> eingabe;
+		cin.ignore();
+
+		while (eingabe < 1 || eingabe > 3)
+		{
+			cout << endl << "+Ungueltige Eingabe!" << endl << endl
+				 << "+Welcher Graph soll aus den Testdateien eingelesen werden (1 / 2 / 3) ?> ";
+			cin >> eingabe;
+			cin.ignore();
+		}
+
+		filename = "graph" + to_string(eingabe) + ".txt";
+
+		delete Graph;
+
+		Graph = new EdgeWeightedGraph(filename);
+
+        break;
+
+    case 2:
+
+        break;
+
+    case 3:
+
+        break;
+
+    case 4:
+
+        break;
+
+    case 5:
+
+        break;
+
+    case 6:
+
+        break;
+
+	case 7:
+
+		print_adj_list(*Graph);
+
+		break;
+
+	case 8:
+
+		break;
+
+	case 9:
+		
+		break;
+
+    default:
+
+        cout << "!Ungueltige Eingabe! Eingabe wiederholen!" << endl;
+
+        break;
+    }
+
+    return true;
+}
+
 int main() {
 	// Starte Unit-Tests
 	Catch::Session().run();
@@ -14,7 +132,8 @@ int main() {
 	//------------------------------------------------------------------------
 	// 1. Ausgabe eines Graphen als Adjazenzliste implementieren
 	//------------------------------------------------------------------------
-	
+	EdgeWeightedGraph* Graph = new EdgeWeightedGraph(0);
+	while (menu(Graph)) {}
 
 
 	//------------------------------------------------------------------------
@@ -56,7 +175,5 @@ int main() {
 	//------------------------------------------------------------------------
 	// Alle Funktionalitäten aus der Aufgabenstellung muessen umgesetzt werden
 
-
-	system("pause");
 	return 0;
 }

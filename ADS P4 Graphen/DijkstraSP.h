@@ -8,8 +8,8 @@
 class DijkstraSP
 {
 private:
-	std::map<int, DirectedEdge> edgeTo;		 
-	std::vector<double> distToVect;			
+	std::map<int, DirectedEdge> edgeTo; 
+	std::vector<double> distToVect;
 	Utils::PriorityQueue<int> pq;
 	void relax(EdgeWeightedDigraph G, int v);	
 
