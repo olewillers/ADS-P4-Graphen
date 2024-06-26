@@ -82,11 +82,12 @@ bool menu(EdgeWeightedGraph*& Graph)
         break;
 
     case 2:
+
 	 cout << "\n+ Startknoten auswählen ?> ";
 		cin >> eingabe;
 		cin.ignore();
 
-		DFS::tiefensuche(Graph, eingabe);
+		Graphsearch::DFS(Graph, vector<bool> marked, vector<int> edgeTo, int s);
 
         break;
 
@@ -95,7 +96,7 @@ bool menu(EdgeWeightedGraph*& Graph)
 		cin >> eingabe;
 		cin.ignore();
 
-		DFS::bteitensuche(Graph, eingabe);
+		Graphsearch::DFS(Graph, vector<bool> marked, vector<int> edgeTo, int s);
         break;
 
     case 4:
