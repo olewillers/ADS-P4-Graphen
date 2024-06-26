@@ -82,11 +82,20 @@ bool menu(EdgeWeightedGraph*& Graph)
         break;
 
     case 2:
+	 cout << "\n+ Startknoten auswÃ¤hlen ?> ";
+		cin >> eingabe;
+		cin.ignore();
+
+		DFS::tiefensuche(Graph, eingabe);
 
         break;
 
     case 3:
+	 cout << "\n+ Startknoten auswÃ¤hlen ?> ";
+		cin >> eingabe;
+		cin.ignore();
 
+		DFS::bteitensuche(Graph, eingabe);
         break;
 
     case 4:
@@ -139,7 +148,7 @@ int main() {
 	//------------------------------------------------------------------------
 	// 2. Suche in Graphen
 	//------------------------------------------------------------------------
-	// Verwenden Sie hierfür die Vorlagen in Graphsearch.h
+	// Verwenden Sie hierfÃ¼r die Vorlagen in Graphsearch.h
 	//
 	// Beispielaufruf der Tiefensuche: 
 	// std::vector<bool> marked;
@@ -151,8 +160,8 @@ int main() {
 	//------------------------------------------------------------------------
 	// 3. Minimaler Spannbaum mit Prim und Kruskal
 	//------------------------------------------------------------------------
-	// Vorlage für Prim ist die Klasse PrimMST (PrimMST.h + PrimMST.cpp)
-	// Vorlage für Kruskal ist die Klasse KruskalMST (KruskalMST.h + KruskalMST.cpp)
+	// Vorlage fÃ¼r Prim ist die Klasse PrimMST (PrimMST.h + PrimMST.cpp)
+	// Vorlage fÃ¼r Kruskal ist die Klasse KruskalMST (KruskalMST.h + KruskalMST.cpp)
 	//
 	// Beispielaufruf von Prim:
 	// PrimMST prim(G, 0);
@@ -171,9 +180,9 @@ int main() {
 
 
 	//------------------------------------------------------------------------
-	// 5. Menü für Benutzereingaben
+	// 5. MenÃ¼ fÃ¼r Benutzereingaben
 	//------------------------------------------------------------------------
-	// Alle Funktionalitäten aus der Aufgabenstellung muessen umgesetzt werden
+	// Alle FunktionalitÃ¤ten aus der Aufgabenstellung muessen umgesetzt werden
 
 	return 0;
 }
