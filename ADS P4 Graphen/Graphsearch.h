@@ -20,6 +20,7 @@ namespace Graphsearch {
 	void DFS_recursive(const EdgeWeightedGraph& G, int v, std::vector<bool>& marked, std::vector<int>& edgeTo)
 	{
 		marked[v] = true;
+		std::cout << v;
 
 		for (const Edge& vw : G.getAdj(v))
 		{
@@ -28,6 +29,7 @@ namespace Graphsearch {
 			if (!marked[w])
 			{
 				edgeTo[w] = v;
+				std::cout << " -> ";
 				DFS_recursive(G, w, marked, edgeTo);
 			}
 		}
@@ -47,7 +49,7 @@ namespace Graphsearch {
 		*			  false		Graph ist nicht zusammenhaengend
 		*/
 
-	bool DFS(const EdgeWeightedGraph& G, int v, std::vector<bool>& marked, std::vector<int>& edgeTo) 
+	bool DFS(const EdgeWeightedGraph& G, int v, std::vector<bool>& marked, std::vector<int>& edgeTo)
 	{
 		marked.resize(G.getV());
 		edgeTo.resize(G.getV());
@@ -68,6 +70,7 @@ namespace Graphsearch {
 			}
 		}
 		
+		std::cout << std::endl;
 		return true;
 	}
 
@@ -108,19 +111,24 @@ namespace Graphsearch {
 			}
 
 			marked[curr_v] = true;
+			std::cout << (curr_v != v ? " -> " : "") << curr_v;
 
-			for (size_t i = 0; i < G.getAdj(curr_v).size(); i++)
+			//for (size_t i = 0; i < G.getAdj(curr_v).size(); i++)
+			for (const Edge& e : G[curr_v])
 			{
-				int w = G.getAdj(curr_v)[i].other(curr_v);
+				//int w = G.getAdj(curr_v)[i].other(curr_v);
+				int w = e.other(curr_v);
 
 				if (!marked[w] && edgeTo[w] == -1)
 				{
+					// TODO: auf richtigkeit pruefen!!!
 					edgeTo[w] = curr_v;
-					marked[curr_v] = true;
 					q.push(w);
 				}
 			}
 		}
+
+		std::cout << std::endl;
 
 		for (bool isMarked : marked)
 		{

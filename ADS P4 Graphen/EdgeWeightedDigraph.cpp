@@ -144,8 +144,40 @@ std::vector<DirectedEdge> EdgeWeightedDigraph::edges() const
 
 bool EdgeWeightedDigraph::del_Edge(DirectedEdge e)
 {
-	return false;
-	//Muss von Ihnen implementiert werden
+	int v = e.from();
+	int w = e.to();
+	bool removed = false;
+
+	// Entferne die Kante aus der Adjazenzliste von v
+	for (auto i = adj[v].begin(); i != adj[v].end(); ++i) 
+	{
+		if (i->to() == w) 
+		{
+			adj[v].erase(i);
+
+			removed = true;
+			break;
+		}
+	}
+
+	// Entferne die Kante aus der Adjazenzliste von w
+	for (auto i = adj[w].begin(); i != adj[w].end(); ++i) 
+	{
+		if (i->from() == v) 
+		{
+			adj[w].erase(i);
+		
+			removed = true;
+			break;
+		}
+	}
+
+	if (removed) 
+	{
+		E--;
+	}
+
+	return removed;
 }
 
 /**

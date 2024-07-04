@@ -1,5 +1,7 @@
 #include <assert.h>
 #include <limits>
+#include <iostream>
+#include <iomanip>
 #include "DijkstraSP.h"
 
 const int infinite_int = std::numeric_limits<int>::max();
@@ -14,13 +16,14 @@ const int infinite_int = std::numeric_limits<int>::max();
  */
 void DijkstraSP::relax(EdgeWeightedDigraph G, int v)
 {
-	for (DirectedEdge edge : G.getAdj(v))
+	for (const DirectedEdge& edge : G.getAdj(v))
 	{
-		int w = edge.to();
 		if (v != edge.from())
 		{
 			continue;
 		}
+
+		int w = edge.to();
 
 		if (distToVect[w] > distToVect[v] + edge.weight())
 		{
@@ -48,14 +51,14 @@ void DijkstraSP::relax(EdgeWeightedDigraph G, int v)
 DijkstraSP::DijkstraSP(EdgeWeightedDigraph G, int s)
 {
 	DirectedEdge empty(-1, -1, -1);
-	distToVect.resize(G.getV(), infinite_int);
+	distToVect.assign(G.getV(), DBL_MAX);
 	
 	for (size_t i = 0; i < G.getV(); i++)
 	{
 		edgeTo[i] = empty;
 	}
 
-	distToVect[s] = 0;
+	distToVect[s] = 0.0;
 	pq.push(s, 0.0);
 
 	while (!pq.empty())
@@ -85,29 +88,7 @@ double DijkstraSP::distTo(int v) const
  */
 bool DijkstraSP::hasPathTo(int v) const
 {
-	DirectedEdge edge = edgeTo.at(v);
-	int curr_v = edge.from();
-	double summed_weights = distToVect[v];
-
-	while (true)
-	{
-		summed_weights -= edge.weight();
-
-		if (distToVect[curr_v] == 0.0 || summed_weights <= 0.0)
-		{
-			break;
-		}
-
-		edge = edgeTo.at(curr_v);
-		curr_v = edge.from();
-	}
-
-	if (distToVect[curr_v] == 0 && summed_weights == 0.0)
-	{
-		return true;
-	}
-
-	return false;
+	return distToVect[v] < DBL_MAX;
 }
 
 /**
@@ -156,4 +137,40 @@ std::vector<DirectedEdge> DijkstraSP::pathTo(int v)
 	}
 
 	return std::vector<DirectedEdge>();
+}
+
+void DijkstraSP::print_dijkstra(EdgeWeightedDigraph G)
+{
+	std::cout << std::endl << std::setw(9) << "Knoten i" << " |";
+	for (int i = 0; i < G.getV(); i++)
+	{
+		std::cout << std::setw(3) << i;
+	}
+	std::cout << std::endl;
+	std::cout << "-------------------------------" << std::endl;
+	std::cout << std::setw(9) << "edgeTo[i]" << " |";
+	for (int i = 0; i < G.getV(); ++i)
+	{
+		if (edgeTo.count(i)) {
+			std::cout << std::setw(3) << edgeTo[i].from();
+		}
+		else {
+			std::cout << " -";
+		}
+	}
+	std::cout << std::endl;
+	std::cout << "-------------------------------" << std::endl;
+	std::cout << std::setw(9) << "distTo[i]" << " |";
+	for (int i = 0; i < G.getV(); ++i)
+	{
+		if (distToVect[i] == DBL_MAX)
+		{
+			std::cout << "inf";
+		}
+		else
+		{
+			std::cout << std::setw(3) << distToVect[i];
+		}
+	}
+	std::cout << std::endl;
 }

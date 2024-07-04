@@ -161,8 +161,40 @@ std::vector<Edge> EdgeWeightedGraph::edges() const
 
 bool EdgeWeightedGraph::del_Edge(Edge e)
 {
-	return false;
-	//Muss von Ihnen implementiert werden
+	int v = e.either();
+	int w = e.other(v);
+	bool removed = false;
+
+	// Entferne die Kante aus der Adjazenzliste von v
+	for (auto i = adj[v].begin(); i != adj[v].end(); ++i) 
+	{
+		if (i->other(v) == w) 
+		{
+			adj[v].erase(i);
+
+			removed = true;
+			break;
+		}
+	}
+
+	// Entferne die Kante aus der Adjazenzliste von w
+	for (auto i = adj[w].begin(); i != adj[w].end(); ++i) 
+	{
+		if (i->other(w) == v) 
+		{
+			adj[w].erase(i);
+
+			removed = true;
+			break;
+		}
+	}
+
+	if (removed) 
+	{
+		E--;
+	}
+
+	return removed;
 }
 
 /**

@@ -19,5 +19,6 @@ public:
 	double distTo(int v) const;					// Abstände vom Startvertex zu v
 	bool hasPathTo(int v) const;				// Überprüft die existens eines Pfades
 	std::vector<DirectedEdge> pathTo(int v) ;	// Kanten des kürzsesten Weges
+	void print_dijkstra(EdgeWeightedDigraph G);
 };
 
